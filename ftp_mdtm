@@ -1,0 +1,22 @@
+ <?php
+// connect and login to FTP server
+$ftp_server = "ftp.example.com";
+$ftp_conn = ftp_connect($ftp_server) or die("Could not connect to $ftp_server");
+$login = ftp_login($ftp_conn, $ftp_username, $ftp_userpass);
+
+$file = "somefile.txt";
+
+// get the last modified time
+$lastchanged = ftp_mdtm($ftp_conn, $file);
+if ($lastchanged != -1)
+  {
+  echo "$file was last modified on : " . date("F d Y H:i:s.",$lastchanged);
+  }
+else
+  {
+  echo "Could not get last modified";
+  }
+
+// close connection
+ftp_close($ftp_conn);
+?> 
